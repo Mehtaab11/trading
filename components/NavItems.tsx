@@ -11,9 +11,8 @@ const NavItems = () => {
 
         return pathname.startsWith(path)
     }
-
     return (
-        <ul className="flex flex-col sm:flex-row p-2 gap-3 sm:gap-10 font font-medium">
+        <ul className="flex flex-col sm:flex-row p-2 gap-4 sm:gap-10 font font-medium">
 
             {NAV_ITEMS.map(({ href, label }) => (
                 <li key={href}>
