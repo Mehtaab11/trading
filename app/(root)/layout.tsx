@@ -9,6 +9,6 @@ const layout = ({ children }: { children: React.ReactNode }) => {
             </div>
         </main>
     )
-}s
+}
 
 export default layout
