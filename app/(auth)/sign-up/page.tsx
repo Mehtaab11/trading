@@ -1,5 +1,6 @@
 "use client"
 import { CountrySelectField } from "@/components/forms/CountrySelectField"
+import FooterLinks from "@/components/forms/FooterLinks"
 import InputField from "@/components/forms/InputField"
 import SelectField from "@/components/forms/SelectField"
 import { Button } from "@/components/ui/button"
@@ -76,6 +77,7 @@ const SignUpPage = () => {
                 {/* Country */}
 
                 <CountrySelectField
+
                     label="Country"
                     name="country"
                     error={errors.country}
@@ -117,6 +119,9 @@ const SignUpPage = () => {
                 <Button type="submit" disabled={isSubmitting} className="yellow-btn w-full mt-5">
                     {isSubmitting ? 'Creating Account' : 'Start Your Investing Journey'}
                 </Button>
+
+                <FooterLinks text="Already have an account?" href="sign-in" linkText="Sign In"/>
+
             </form>
 
         </>
