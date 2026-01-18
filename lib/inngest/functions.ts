@@ -61,7 +61,7 @@ export const sendDailyNewsSummary = inngest.createFunction(
   {
     id: "daily-news-summary",
   },
-  [{ event: "app/send.daily.news" }, { cron: "* 12 * * *" }],
+  [{ event: "app/send.daily.news" }, { cron: "0 12 * * *" }],
   async ({ step }) => {
     // get all the users
     const users = await step.run("get-all-users", getAllUsersForNewsEmail); // step - 1
@@ -89,7 +89,11 @@ export const sendDailyNewsSummary = inngest.createFunction(
           }
           perUser.push({ user, articles });
         } catch (e) {
-          console.error("daily-news: error preparing user news", user.email, e);
+          console.error(
+            "daily-news: error preparing user news",
+            { userId: user.id },
+            e,
+          );
           perUser.push({ user, articles: [] });
         }
       }
@@ -104,7 +108,7 @@ export const sendDailyNewsSummary = inngest.createFunction(
           "{{newsData}}",
           JSON.stringify(articles, null, 2),
         );
-        const response = await step.ai.infer(`summarize-news-${user.email}`, {
+        const response = await step.ai.infer(`summarize-news-${user.id}`, {
           model: step.ai.models.gemini({ model: "gemini-2.5-flash-lite" }),
           body: {
             contents: [{ role: "user", parts: [{ text: prompt }] }],
@@ -118,7 +122,11 @@ export const sendDailyNewsSummary = inngest.createFunction(
           "No Market News Today.";
         userNewsSummaries.push({ user, newsContent });
       } catch (e) {
-        console.error("Failed to summarize news for user  ", user.email, e);
+        console.error(
+          "Failed to summarize news for user  ",
+          { userId: user.id },
+          e,
+        );
       }
     }
 
