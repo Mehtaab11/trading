@@ -1,9 +1,13 @@
 import { inngest } from "@/lib/inngest/client";
-import { PERSONALIZED_WELCOME_EMAIL_PROMPT } from "@/lib/inngest/prompts";
-import { sendWelcomeEmail } from "@/lib/nodemailer";
+import {
+  NEWS_SUMMARY_EMAIL_PROMPT,
+  PERSONALIZED_WELCOME_EMAIL_PROMPT,
+} from "@/lib/inngest/prompts";
+import { sendNewsSummaryEmail, sendWelcomeEmail } from "@/lib/nodemailer";
 import { getAllUsersForNewsEmail } from "../actions/user.action";
 import { getWatchlistSymbolsByEmail } from "../actions/watchlist.action";
 import { getNews } from "../actions/finnhub.action";
+import { getFormattedTodayDate } from "../utils";
 
 export const sendSignUpEmail = inngest.createFunction(
   { id: "sign-up-email" },
@@ -18,7 +22,7 @@ export const sendSignUpEmail = inngest.createFunction(
 
     const prompt = PERSONALIZED_WELCOME_EMAIL_PROMPT.replace(
       "{{userProfile}}",
-      userProfile
+      userProfile,
     );
 
     const response = await step.ai.infer("generate-welcome-intro", {
@@ -50,23 +54,24 @@ export const sendSignUpEmail = inngest.createFunction(
       success: true,
       message: "Welcome email sent successfully",
     };
-  }
+  },
 );
 
 export const sendDailyNewsSummary = inngest.createFunction(
   {
     id: "daily-news-summary",
   },
-  [{ event: "app/send.daily.news" }, { cron: "0 12 * * *" }],
+  [{ event: "app/send.daily.news" }, { cron: "* 12 * * *" }],
   async ({ step }) => {
     // get all the users
-    const users = await step.run("get-all-users", getAllUsersForNewsEmail);
+    const users = await step.run("get-all-users", getAllUsersForNewsEmail); // step - 1
 
     if (users.length === 0)
       return { success: false, message: "No users to send news email to" };
 
     // for each user, get their watchlist symbols
     const results = await step.run("fetch-user-news", async () => {
+      // step-2
       const perUser: Array<{
         user: UserForNewsEmail;
         articles: MarketNewsArticle[];
@@ -90,9 +95,52 @@ export const sendDailyNewsSummary = inngest.createFunction(
       }
       return perUser;
     });
+    // step-3 : {Placeholder} summarise news via AI
 
+    const userNewsSummaries: { user: User; newsContent: string | null }[] = [];
+    for (const { user, articles } of results) {
+      try {
+        const prompt = NEWS_SUMMARY_EMAIL_PROMPT.replace(
+          "{{newsData}}",
+          JSON.stringify(articles, null, 2),
+        );
+        const response = await step.ai.infer(`summarize-news-${user.email}`, {
+          model: step.ai.models.gemini({ model: "gemini-2.5-flash-lite" }),
+          body: {
+            contents: [{ role: "user", parts: [{ text: prompt }] }],
+          },
+        });
 
+        const part = response.candidates?.[0]?.content?.parts?.[0];
 
+        const newsContent =
+          (part && "text" in part ? part.text : null) ||
+          "No Market News Today.";
+        userNewsSummaries.push({ user, newsContent });
+      } catch (e) {
+        console.error("Failed to summarize news for user  ", user.email, e);
+      }
+    }
 
-  }
+    // step-4: send email per user
+
+    await step.run("send-news-emails", async () => {
+      await Promise.all(
+        userNewsSummaries.map(async ({ user, newsContent }) => {
+          if (!newsContent) return false;
+
+          return await sendNewsSummaryEmail({
+            email: user.email,
+            date: getFormattedTodayDate(),
+            newsContent,
+          });
+        }),
+      );
+    });
+
+    return {
+      success: true,
+      message: "Daily news summary emails sent successfully",
+    };
+  },
 );
