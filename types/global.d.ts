@@ -20,6 +20,12 @@ declare global {
         intro: string;
     }
 
+    interface NewsSummaryEmailData {
+        email: string;
+        date: string;
+        newsContent: string;
+    }
+
     type User = {
         id: string;
         name: string;
