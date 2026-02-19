@@ -1,4 +1,3 @@
-// 
 import { Schema, model, models, type Document, type Model } from 'mongoose';
 
 export interface WatchlistItem extends Document {

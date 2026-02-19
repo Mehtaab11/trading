@@ -28,7 +28,7 @@ const SignUp = () => {
             riskTolerance: 'Medium',
             preferredIndustry: 'Technology'
         },
-        mode: 'onBlur' 
+        mode: 'onBlur'
     }, );
 
     const onSubmit = async (data: SignUpFormData) => {
