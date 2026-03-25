@@ -11,43 +11,35 @@ The application also includes a **personalized email system** that sends a welco
 ## ✨ Features
 
 - 📊 Real-time market simulation  
-- 💰 Buy & sell assets  
-- 📈 Portfolio tracking with profit/loss  
 - 🔐 JWT-based authentication  
 - ⚡ Live updates using WebSockets (Socket.io)  
-- 📧 Personalized welcome email on signup  
+- 📧 Personalized welcome email on signup
+- Regular personalised stock Updates 
 
 ---
 
 ## 🧠 How It Works
 
 User registers → Account created → Email triggered  
-User logs in → Fetch portfolio → Start trading  
-Trade executed → DB updated → UI updates in real-time  
+User logs in → Fetch portfolio → Creates Watchlist  
+See real time updates for thier favourite stocks → UI updates in real-time  
 
 ---
 
 ## 🏗️ Tech Stack
 
 ### Frontend
-- React / Next.js  
-- TypeScript  
-- Tailwind CSS  
-- Zustand  
-
+- Next.js
 ### Backend
-- Node.js  
-- Express.js  
-
+- Next.js
 ### Database
-- MongoDB / PostgreSQL  
+- MongoDB   
 
 ### Real-Time
 - Socket.io  
 
 ### Email Service
-- Nodemailer / SendGrid / Resend  
-
+- Nodemailer 
 ---
 
 ## 📂 Project Structure
@@ -105,9 +97,7 @@ Signup → Backend event → Email service → User inbox
 ## 🚀 Future Improvements
 
 - 📊 Advanced charts  
-- 🔔 Trade alerts via email  
-- 🤖 AI-based trading suggestions  
-- 💳 Wallet integration  
+- 🔔 Trade alerts via email    
 - 📱 Mobile app  
 
 ---
@@ -124,13 +114,14 @@ Signup → Backend event → Email service → User inbox
 
 ## 🌍 Live Demo
 
-Add your deployed link here  
+https://ai-lms-saas-jrav-7dakkp40v-mehtaab11s-projects.vercel.app/sign-in
 
 ---
 
 ## 📸 Screenshots
 
-Add images or GIFs here  
+<img width="1365" height="652" alt="image" src="https://github.com/user-attachments/assets/566c2c73-aefd-4553-86ca-aa9a058e3d22" />
+
 
 ---
 
