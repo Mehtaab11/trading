@@ -1,36 +1,159 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🚀 Trading App — Real-Time Full Stack Trading Platform
 
-## Getting Started
+## 📌 Overview
 
-First, run the development server:
+A full-stack trading application that simulates a real-world stock trading environment. Users can track market data, execute trades, and manage their portfolio in real time.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+The application also includes a **personalized email system** that sends a welcome email upon user registration, mimicking real-world SaaS onboarding flows.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## ✨ Features
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- 📊 Real-time market simulation  
+- 💰 Buy & sell assets  
+- 📈 Portfolio tracking with profit/loss  
+- 🔐 JWT-based authentication  
+- ⚡ Live updates using WebSockets (Socket.io)  
+- 📧 Personalized welcome email on signup  
 
-## Learn More
+---
 
-To learn more about Next.js, take a look at the following resources:
+## 🧠 How It Works
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+User registers → Account created → Email triggered  
+User logs in → Fetch portfolio → Start trading  
+Trade executed → DB updated → UI updates in real-time  
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+---
 
-## Deploy on Vercel
+## 🏗️ Tech Stack
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Frontend
+- React / Next.js  
+- TypeScript  
+- Tailwind CSS  
+- Zustand  
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### Backend
+- Node.js  
+- Express.js  
+
+### Database
+- MongoDB / PostgreSQL  
+
+### Real-Time
+- Socket.io  
+
+### Email Service
+- Nodemailer / SendGrid / Resend  
+
+---
+
+## 📂 Project Structure
+
+trading-app/
+│
+├── client/          
+├── server/          
+├── controllers/     
+├── models/          
+├── routes/          
+├── utils/           
+└── .env             
+
+---
+
+## ⚙️ Installation & Setup
+
+### 1. Clone the repository
+
+git clone https://github.com/your-username/trading-app.git  
+cd trading-app  
+
+### 2. Install dependencies
+
+npm install  
+
+### 3. Setup environment variables
+
+Create a `.env` file:
+
+PORT=5000  
+MONGODB_URI=your_database_url  
+JWT_SECRET=your_secret_key  
+
+EMAIL_USER=your_email  
+EMAIL_PASS=your_password  
+
+### 4. Run the application
+
+npm run dev  
+
+---
+
+## 📧 Email Workflow
+
+Trigger: User registration  
+Action: Send personalized welcome email  
+Content: User name + onboarding message  
+
+Signup → Backend event → Email service → User inbox  
+
+---
+
+## 🚀 Future Improvements
+
+- 📊 Advanced charts  
+- 🔔 Trade alerts via email  
+- 🤖 AI-based trading suggestions  
+- 💳 Wallet integration  
+- 📱 Mobile app  
+
+---
+
+## 🧠 Learnings
+
+- Real-time systems using WebSockets  
+- Event-driven email workflows  
+- Scalable backend architecture  
+- State management  
+- Trading logic simulation  
+
+---
+
+## 🌍 Live Demo
+
+Add your deployed link here  
+
+---
+
+## 📸 Screenshots
+
+Add images or GIFs here  
+
+---
+
+## 🤝 Contributing
+
+Contributions are welcome. Fork and submit a PR.
+
+---
+
+## 📜 License
+
+MIT License  
+
+---
+
+## 💡 Author
+
+Mehtaab Aalam  
+GitHub: https://github.com/Mehtaab11  
+LinkedIn: https://linkedin.com/in/mehtaabaalam  
+
+---
+
+## ⭐ Support
+
+If you like this project, give it a ⭐ on GitHub!
