@@ -114,7 +114,7 @@ Signup → Backend event → Email service → User inbox
 
 ## 🌍 Live Demo
 
-https://ai-lms-saas-jrav-7dakkp40v-mehtaab11s-projects.vercel.app/sign-in
+https://trading-eosin.vercel.app/sign-up
 
 ---
 
