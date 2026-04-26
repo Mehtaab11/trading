@@ -99,7 +99,7 @@ Signup → Backend event → Email service → User inbox
 - 📊 Advanced charts  
 - 🔔 Trade alerts via email    
 - 📱 Mobile app  
-
+- Regular Updates for personalied Stocks
 ---
 
 ## 🧠 Learnings
@@ -108,7 +108,8 @@ Signup → Backend event → Email service → User inbox
 - Event-driven email workflows  
 - Scalable backend architecture  
 - State management  
-- Trading logic simulation  
+- Trading logic simulation
+- State & API Management
 
 ---
 
